@@ -73,7 +73,7 @@ class UserService {
       }
     );
   }
-  async getUserAge(dateOfBirth: Date) {
+  private async getUserAge(dateOfBirth: Date) {
     return moment().diff(dateOfBirth, "years");
   }
   async verifyToken(authHeader: string) {
