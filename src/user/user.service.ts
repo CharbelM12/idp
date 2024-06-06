@@ -87,6 +87,9 @@ class UserService {
       return {
         userId: decodedToken.userId,
         userAge: decodedToken.userAge,
+        userPhoneNumber: decodedToken.userPhoneNumber,
+        userFirstName: decodedToken.userFirstName,
+        userLastName: decodedToken.userLastName,
       };
     }
   }
@@ -94,7 +97,11 @@ class UserService {
     const payload = {
       userId: user._id,
       userAge: user.age,
+      userPhoneNumber: user.phoneNumber,
+      userFirstName: user.firstName,
+      userLastName: user.lastName,
     };
+    console.log(payload);
     const accessToken = generateAccessTokens(payload);
     const tokenExpiration = moment()
       .add(

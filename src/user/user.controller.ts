@@ -42,12 +42,14 @@ class UserController {
   }
   async verifyToken(req: Request, res: Response, next: NextFunction) {
     try {
-      const { userId, userAge } = await userService.verifyToken(
-        req.headers.authorization!
-      );
+      const { userId, userAge, userPhoneNumber, userFirstName, userLastName } =
+        await userService.verifyToken(req.headers.authorization!);
       res.send({
         userId: userId,
         userAge: userAge,
+        userPhoneNumber: userPhoneNumber,
+        userFirstName: userFirstName,
+        userLastName: userLastName,
       });
     } catch (error) {
       next(error);

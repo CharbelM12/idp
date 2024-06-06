@@ -7,6 +7,7 @@ interface User extends Document {
   lastName: string;
   dateOfBirth: Date;
   age: Number;
+  phoneNumber: String;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,6 +20,7 @@ interface UpdateProfile {
   firstName: string;
   lastName: string;
   dateOfBirth: Date;
+  phoneNumber: String;
 }
 interface User {
   _id: mongoose.Schema.Types.ObjectId;

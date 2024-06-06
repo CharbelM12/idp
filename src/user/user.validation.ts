@@ -6,6 +6,7 @@ const signupBody = {
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   dateOfBirth: Joi.date().iso().required(),
+  phoneNumber: Joi.string().required(),
 };
 const loginBody = {
   email: Joi.string().email().required(),
@@ -16,6 +17,7 @@ const updateProfile = {
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   dateOfBirth: Joi.date().iso().required(),
+  phoneNumber: Joi.string().required(),
 };
 
 const userValidation = {

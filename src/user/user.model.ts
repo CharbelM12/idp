@@ -10,6 +10,7 @@ const userSchema = new Schema(
     lastName: String,
     dateOfBirth: Date,
     age: Number,
+    phoneNumber: String,
   },
   { timestamps: config.timestamps.timestampsValue }
 );
