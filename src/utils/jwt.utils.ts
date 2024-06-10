@@ -5,6 +5,7 @@ import statusCodes from "../configurations/errorCodes.config";
 import { CustomError } from "./common-interfaces.utils";
 
 const generateAccessTokens = (payload: object) => {
+  console.log(payload);
   const accessToken = jwt.sign(payload, config.tokens.accessTokenSecret!, {
     expiresIn: config.tokens.accessTokenExpiry,
   });

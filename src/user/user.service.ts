@@ -1,5 +1,5 @@
 import userModel from "./user.model";
-import { User, Login, UpdateProfile, VerifyToken } from "./user.interface";
+import { User, Login, UpdateProfile } from "./user.interface";
 import statusCodes from "../configurations/errorCodes.config";
 import mongoose from "mongoose";
 import { SHA256 } from "crypto-js";
@@ -8,6 +8,7 @@ import config from "../configurations/config";
 import errorMessages from "../errorMessages";
 import { generateAccessTokens, verifyJwt } from "../utils/jwt.utils";
 import { CustomError } from "../utils/common-interfaces.utils";
+import { handleFilesFormData } from "@eurisko/common-utils-node";
 
 class UserService {
   async signup(reqBody: User) {
@@ -65,6 +66,21 @@ class UserService {
     userId: mongoose.Schema.Types.ObjectId,
     reqBody: UpdateProfile
   ) {
+    const file = await handleFilesFormData(
+      [
+        {
+          name: "picture",
+          isMultiple: false,
+          path: __dirname,
+        },
+      ],
+      {
+        url: [],
+        order: [],
+      },
+      {}
+    );
+    console.log(file);
     return userModel.updateOne(
       { _id: userId },
       {
@@ -86,6 +102,7 @@ class UserService {
       const decodedToken = verifyJwt(token);
       return {
         userId: decodedToken.userId,
+        userEmail: decodedToken.userEmail,
         userAge: decodedToken.userAge,
         userPhoneNumber: decodedToken.userPhoneNumber,
         userFirstName: decodedToken.userFirstName,
@@ -96,12 +113,12 @@ class UserService {
   private async generateLoginResponse(user: User) {
     const payload = {
       userId: user._id,
+      userEmail: user.email,
       userAge: user.age,
       userPhoneNumber: user.phoneNumber,
       userFirstName: user.firstName,
       userLastName: user.lastName,
     };
-    console.log(payload);
     const accessToken = generateAccessTokens(payload);
     const tokenExpiration = moment()
       .add(

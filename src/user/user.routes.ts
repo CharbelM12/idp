@@ -13,12 +13,7 @@ router.post("/login", validate(userValidation.login), userController.login);
 
 router.get("/profile", isAuth, userController.getProfile);
 
-router.put(
-  "/profile",
-  isAuth,
-  validate(userValidation.updateProfile),
-  userController.updateProfile
-);
+router.put("/profile", isAuth, userController.updateProfile);
 router.post("/verify-token", userController.verifyToken);
 
 export default router;
